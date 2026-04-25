@@ -36,7 +36,7 @@ export default function Navigation() {
               <div className="absolute -inset-1 bg-accent-gold opacity-20 rounded-lg blur-sm" />
             </div>
             <span className="font-bebas text-2xl text-accent-gold tracking-wider">
-              LionHeart
+              Vision Defence Security
             </span>
           </div>
 

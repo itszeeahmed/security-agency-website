@@ -15,7 +15,7 @@ export default function Footer() {
               <div className="flex items-center space-x-3">
                 <Shield className="w-8 h-8 text-accent-gold" />
                 <span className="font-bebas text-2xl text-accent-gold tracking-wider">
-                  LionHeart
+                  Vision Defence Security
                 </span>
               </div>
               <p className="font-barlow text-text-muted text-sm">
@@ -116,7 +116,7 @@ export default function Footer() {
                 <div className="flex items-center space-x-3">
                   <Mail className="w-5 h-5 text-accent-gold" />
                   <span className="font-barlow text-text-muted text-sm">
-                    info@lionheart-security.co.uk
+                    info@visiondefence-security.co.uk
                   </span>
                 </div>
                 <div className="flex items-center space-x-3">
@@ -135,7 +135,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <ScrollReveal>
               <p className="font-barlow text-text-muted text-sm">
-                © 2024 LionHeart Security Group. All rights reserved.
+                © 2024 Vision Defence Security. All rights reserved.
               </p>
             </ScrollReveal>
             <ScrollReveal delay={0.1}>

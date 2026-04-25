@@ -6,7 +6,7 @@ import LayoutWrapper from '@/components/LayoutWrapper'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'LionHeart Security Group | Professional Security & Cleaning Services',
+  title: 'Vision Defence Security | Professional Security & Cleaning Services',
   description: 'Professional security and cleaning services across the UK. Trusted by leading companies for over 17 years.',
 }
 

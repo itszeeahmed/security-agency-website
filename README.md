@@ -1,6 +1,6 @@
-# LionHeart Security Group Website
+# Vision Defence Security Website
 
-A modern, cinematic single-page website for LionHeart Security Group, a UK-based security agency. Built with Next.js 14, featuring a dramatic page loader, smooth animations, and a premium tactical aesthetic.
+A modern, cinematic single-page website for Vision Defence Security, a UK-based security agency. Built with Next.js 14, featuring a dramatic page loader, smooth animations, and a premium tactical aesthetic.
 
 ## Features
 
@@ -54,7 +54,7 @@ A modern, cinematic single-page website for LionHeart Security Group, a UK-based
 1. **Clone the repository**
    ```bash
    git clone <repository-url>
-   cd lionheart-security
+   cd visiondefence-security
    ```
 
 2. **Install dependencies**
@@ -161,4 +161,4 @@ The site is ready for deployment on platforms like:
 
 ## License
 
-© 2024 LionHeart Security Group. All rights reserved.
+© 2024 Vision Defence Security. All rights reserved.

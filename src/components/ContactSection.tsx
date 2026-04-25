@@ -242,9 +242,9 @@ export default function ContactSection() {
                         Email Addresses
                       </h4>
                       <p className="font-barlow text-text-muted">
-                        info@lionheart-security.co.uk<br />
-                        quotes@lionheart-security.co.uk<br />
-                        support@lionheart-security.co.uk
+                        info@visiondefence-security.co.uk<br />
+                        quotes@visiondefence-security.co.uk<br />
+                        support@visiondefence-security.co.uk
                       </p>
                     </div>
                   </div>
@@ -258,7 +258,7 @@ export default function ContactSection() {
                         Headquarters
                       </h4>
                       <p className="font-barlow text-text-muted">
-                        LionHeart House<br />
+                        Vision Defence Security House<br />
                         123 Security Boulevard<br />
                         London, EC1A 1BB<br />
                         United Kingdom

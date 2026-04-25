@@ -99,7 +99,7 @@ export default function PageLoader({ onComplete }: PageLoaderProps) {
                 />
               </svg>
               <span className="font-bebas text-4xl text-accent-gold tracking-wider">
-                LionHeart
+                Vision Defence Security
               </span>
             </div>
             
