@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0b0c0f;
+  --bg-surface: #111318;
+  --accent-gold: #c8973a;
+  --accent-light: #e8b84b;
+  --text-primary: #d4cfc8;
+  --text-muted: #6b6860;
+  --border: rgba(200,151,58,0.18);
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: 'Barlow', sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--accent-gold);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-light);
+}
+
+/* Service card hover animation */
+.service-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-gold), var(--accent-light));
+  transition: width 0.4s ease;
+}
+
+.service-card:hover::after {
+  width: 100%;
+}
+
+/* Why Us card hover animation */
+.why-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.why-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2px;
+  height: 0;
+  background: linear-gradient(180deg, var(--accent-gold), var(--accent-light));
+  transition: height 0.4s ease;
+}
+
+.why-card:hover::before {
+  height: 100%;
+}
+
+/* Industry card hover animation */
+.industry-card {
+  transition: all 0.3s ease;
+}
+
+.industry-card:hover {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-light));
+  color: var(--bg-primary);
+}
+
+.industry-card:hover .industry-icon {
+  transform: scale(1.15);
+}
+
+.industry-icon {
+  transition: transform 0.3s ease;
+}
+
+/* Stats hover animation */
+.stat-item:hover .stat-underline {
+  width: 100%;
+}
+
+.stat-underline {
+  display: block;
+  height: 2px;
+  background: var(--accent-gold);
+  width: 0;
+  transition: width 0.3s ease;
+  margin-top: 8px;
+}
+
+/* Grid background for loader */
+.grid-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200%;
+  height: 200%;
+  background-image: 
+    linear-gradient(var(--accent-gold) 1px, transparent 1px),
+    linear-gradient(90deg, var(--accent-gold) 1px, transparent 1px);
+  background-size: 50px 50px;
+  opacity: 0.03;
+  animation: gridDrift 20s linear infinite;
+}
+
+/* Corner decorations */
+.corner-decoration {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--accent-gold);
+}
+
+.corner-decoration.top-left {
+  top: 20px;
+  left: 20px;
+  border-right: none;
+  border-bottom: none;
+}
+
+.corner-decoration.top-right {
+  top: 20px;
+  right: 20px;
+  border-left: none;
+  border-bottom: none;
+}
+
+.corner-decoration.bottom-left {
+  bottom: 20px;
+  left: 20px;
+  border-right: none;
+  border-top: none;
+}
+
+.corner-decoration.bottom-right {
+  bottom: 20px;
+  right: 20px;
+  border-left: none;
+  border-top: none;
+}
+
+/* CTA pulse animation */
+.cta-pulse {
+  animation: pulseGold 3s ease-in-out infinite;
+}
+
+/* Particle canvas background */
+.particles-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* Utility classes */
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.bg-gradient {
+  background: linear-gradient(135deg, var(--accent-gold), var(--accent-light));
+}
+
+.border-gradient {
+  border: 1px solid var(--border);
+}
+
+/* Section transitions */
+.section-enter {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.section-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .corner-decoration {
+    width: 15px;
+    height: 15px;
+  }
+  
+  .corner-decoration.top-left,
+  .corner-decoration.top-right {
+    top: 10px;
+  }
+  
+  .corner-decoration.bottom-left,
+  .corner-decoration.bottom-right {
+    bottom: 10px;
+  }
+  
+  .corner-decoration.top-left,
+  .corner-decoration.bottom-left {
+    left: 10px;
+  }
+  
+  .corner-decoration.top-right,
+  .corner-decoration.bottom-right {
+    right: 10px;
+  }
+}
