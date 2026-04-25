@@ -43,7 +43,7 @@ export default function WhyUsSection() {
         {/* Section Header */}
         <ScrollReveal className="text-center mb-20">
           <h2 className="font-bebas text-4xl md:text-5xl text-gradient mb-6">
-            Why Choose LionHeart
+            Why Choose Vision Defence Security
           </h2>
           <p className="font-barlow text-text-muted max-w-2xl mx-auto">
             Setting the industry standard with unmatched expertise, reliability, and customer service
