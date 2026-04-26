@@ -3,45 +3,152 @@
 import ScrollReveal from './ScrollReveal'
 import { useState } from 'react'
 import { Phone, Mail, MapPin, Send } from 'lucide-react'
+import CountryPhoneSelector from './CountryPhoneSelector'
+import { validatePhoneNumber } from '@/utils/countryPhoneData'
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     phone: '',
+    phoneCountryCode: 'US',
     company: '',
-    service: '',
+    services: [] as string[],
     message: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+  const [errors, setErrors] = useState<{ [key: string]: string }>({})
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      [e.target.name]: e.target.value
+      [name]: value
     }))
+    
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }))
+    }
+  }
+
+  const handlePhoneChange = (phone: string, countryCode: string) => {
+    setFormData(prev => ({
+      ...prev,
+      phone,
+      phoneCountryCode: countryCode
+    }))
+    
+    // Clear phone error when user starts typing
+    if (errors.phone) {
+      setErrors(prev => ({
+        ...prev,
+        phone: ''
+      }))
+    }
+  }
+
+  const handleServiceChange = (service: string, checked: boolean) => {
+    setFormData(prev => ({
+      ...prev,
+      services: checked
+        ? [...prev.services, service]
+        : prev.services.filter(s => s !== service)
+    }))
+    
+    // Clear service error when user selects a service
+    if (errors.services && checked) {
+      setErrors(prev => ({
+        ...prev,
+        services: ''
+      }))
+    }
+  }
+
+  const validateForm = (): boolean => {
+    const newErrors: { [key: string]: string } = {}
+
+    // Name validation
+    if (!formData.name.trim()) {
+      newErrors.name = 'Full name is required'
+    } else if (formData.name.trim().length < 3) {
+      newErrors.name = 'Name must be at least 3 characters'
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email address is required'
+    } else if (!emailRegex.test(formData.email.trim())) {
+      newErrors.email = 'Please enter a valid email address'
+    }
+
+    // Phone validation
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone number is required'
+    } else if (!validatePhoneNumber(formData.phone, formData.phoneCountryCode)) {
+      newErrors.phone = 'Please enter a valid phone number for the selected country'
+    }
+
+    // Message validation
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required'
+    } else if (formData.message.trim().length < 10) {
+      newErrors.message = 'Message must be at least 10 characters'
+    }
+
+    setErrors(newErrors)
+    return Object.keys(newErrors).length === 0
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    if (!validateForm()) {
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitStatus('idle')
+    setErrors({})
 
-    // Simulate form submission
+    // Submit to API
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000))
-      setSubmitStatus('success')
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        company: '',
-        service: '',
-        message: ''
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          honeypot: '' // Empty honeypot for legitimate submissions
+        }),
       })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus('success')
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          phoneCountryCode: 'US',
+          company: '',
+          services: [],
+          message: ''
+        })
+      } else {
+        setSubmitStatus('error')
+        setErrors({ general: data.message || 'Failed to send message. Please try again.' })
+      }
     } catch (error) {
       setSubmitStatus('error')
+      setErrors({ general: 'Network error. Please try again later.' })
     } finally {
       setIsSubmitting(false)
     }
@@ -80,10 +187,15 @@ export default function ContactSection() {
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-surface border border-border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-gold transition-colors duration-300"
+                      className={`w-full px-4 py-3 bg-surface border rounded-lg text-black placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent transition-colors duration-300 ${
+                        errors.name ? 'border-red-500' : 'border-border'
+                      }`}
                       placeholder="John Smith"
+                      disabled={isSubmitting}
                     />
+                    {errors.name && (
+                      <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                    )}
                   </div>
                   
                   <div>
@@ -96,10 +208,15 @@ export default function ContactSection() {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-surface border border-border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-gold transition-colors duration-300"
+                      className={`w-full px-4 py-3 bg-surface border rounded-lg text-black placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent transition-colors duration-300 ${
+                        errors.email ? 'border-red-500' : 'border-border'
+                      }`}
                       placeholder="john@example.com"
+                      disabled={isSubmitting}
                     />
+                    {errors.email && (
+                      <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                    )}
                   </div>
                 </div>
 
@@ -108,15 +225,11 @@ export default function ContactSection() {
                     <label htmlFor="phone" className="block font-barlow text-sm text-text-muted mb-2">
                       Phone Number *
                     </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
+                    <CountryPhoneSelector
                       value={formData.phone}
-                      onChange={handleChange}
-                      required
-                      className="w-full px-4 py-3 bg-surface border border-border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-gold transition-colors duration-300"
-                      placeholder="+44 20 1234 5678"
+                      onChange={handlePhoneChange}
+                      error={errors.phone}
+                      disabled={isSubmitting}
                     />
                   </div>
                   
@@ -130,29 +243,45 @@ export default function ContactSection() {
                       name="company"
                       value={formData.company}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-surface border border-border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-gold transition-colors duration-300"
+                      className={`w-full px-4 py-3 bg-surface border rounded-lg text-black placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent transition-colors duration-300 ${
+                        errors.company ? 'border-red-500' : 'border-border'
+                      }`}
                       placeholder="Your Company Ltd"
+                      disabled={isSubmitting}
                     />
+                    {errors.company && (
+                      <p className="mt-1 text-sm text-red-600">{errors.company}</p>
+                    )}
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="service" className="block font-barlow text-sm text-text-muted mb-2">
-                    Service Interest
+                  <label className="block font-barlow text-sm text-text-muted mb-3">
+                    Service Interest (Select all that apply)
                   </label>
-                  <select
-                    id="service"
-                    name="service"
-                    value={formData.service}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-surface border border-border rounded-lg text-text-primary focus:outline-none focus:border-accent-gold transition-colors duration-300"
-                  >
-                    <option value="">Select a service</option>
-                    <option value="security">Security Services</option>
-                    <option value="cleaning">Cleaning Services</option>
-                    <option value="both">Both Security & Cleaning</option>
-                    <option value="consultation">Free Consultation</option>
-                  </select>
+                  <div className="space-y-2">
+                    {[
+                      { value: 'security', label: 'Security Services' },
+                      { value: 'cleaning', label: 'Cleaning Services' },
+                      { value: 'consultation', label: 'Free Consultation' }
+                    ].map((service) => (
+                      <label key={service.value} className="flex items-center space-x-3 cursor-pointer">
+                        <input
+                          type="checkbox"
+                          name={service.value}
+                          value={service.value}
+                          checked={formData.services.includes(service.value)}
+                          onChange={(e) => handleServiceChange(service.value, e.target.checked)}
+                          disabled={isSubmitting}
+                          className="w-4 h-4 text-accent-gold bg-surface border-border rounded focus:ring-accent-gold focus:ring-2"
+                        />
+                        <span className="font-barlow text-sm text-text-primary">{service.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {errors.services && (
+                    <p className="mt-2 text-sm text-red-600">{errors.services}</p>
+                  )}
                 </div>
 
                 <div>
@@ -164,11 +293,16 @@ export default function ContactSection() {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    required
                     rows={5}
-                    className="w-full px-4 py-3 bg-surface border border-border rounded-lg text-text-primary placeholder-text-muted focus:outline-none focus:border-accent-gold transition-colors duration-300 resize-none"
+                    className={`w-full px-4 py-3 bg-surface border rounded-lg text-black placeholder-text-muted focus:outline-none focus:ring-2 focus:ring-accent-gold focus:border-transparent transition-colors duration-300 resize-none ${
+                      errors.message ? 'border-red-500' : 'border-border'
+                    }`}
                     placeholder="Tell us about your security and cleaning needs..."
+                    disabled={isSubmitting}
                   />
+                  {errors.message && (
+                    <p className="mt-1 text-sm text-red-600">{errors.message}</p>
+                  )}
                 </div>
 
                 {/* Submit Status Messages */}

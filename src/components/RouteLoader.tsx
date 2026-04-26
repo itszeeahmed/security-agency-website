@@ -2,10 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-
-interface PageLoaderProps {
-  onComplete: () => void
-}
+import { usePathname } from 'next/navigation'
 
 const statusTexts = [
   "INITIALISING SYSTEMS...",
@@ -14,12 +11,19 @@ const statusTexts = [
   "SYSTEMS ONLINE."
 ]
 
-export default function PageLoader({ onComplete }: PageLoaderProps) {
+export default function RouteLoader() {
+  const [isLoading, setIsLoading] = useState(false)
   const [progress, setProgress] = useState(0)
   const [statusIndex, setStatusIndex] = useState(0)
   const [showCurtain, setShowCurtain] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
+    // Show loader when route changes
+    setIsLoading(true)
+    setProgress(0)
+    setStatusIndex(0)
+    setShowCurtain(false)
 
     // Progress bar animation
     const progressInterval = setInterval(() => {
@@ -28,24 +32,24 @@ export default function PageLoader({ onComplete }: PageLoaderProps) {
           clearInterval(progressInterval)
           return 100
         }
-        return prev + 1
+        return prev + 2
       })
-    }, 22) // 100% over ~2.2 seconds
+    }, 10) // 100% over ~1 second
 
     // Status text cycling
     const statusInterval = setInterval(() => {
       setStatusIndex(prev => (prev + 1) % statusTexts.length)
-    }, 600)
+    }, 300)
 
-    // Trigger curtain exit after 2.4 seconds
+    // Trigger curtain exit after 1.2 seconds
     const curtainTimeout = setTimeout(() => {
       setShowCurtain(true)
-    }, 2400)
+    }, 1200)
 
     // Complete after curtain animation
     const completeTimeout = setTimeout(() => {
-      onComplete()
-    }, 3200) // 2.4s + 0.8s curtain animation
+      setIsLoading(false)
+    }, 1600) // 1.2s + 0.4s curtain animation
 
     return () => {
       clearInterval(progressInterval)
@@ -53,12 +57,11 @@ export default function PageLoader({ onComplete }: PageLoaderProps) {
       clearTimeout(curtainTimeout)
       clearTimeout(completeTimeout)
     }
-  }, [onComplete])
+  }, [pathname])
 
-  
   return (
     <AnimatePresence>
-      {!showCurtain && (
+      {isLoading && (
         <motion.div
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -133,7 +136,7 @@ export default function PageLoader({ onComplete }: PageLoaderProps) {
                   className="absolute inset-x-0 bottom-0 h-1/2 bg-primary z-20"
                   initial={{ y: 0 }}
                   animate={{ y: "100%" }}
-                  exit={{ y: 0 }}
+                  exit={{ opacity: 0 }}
                   transition={{ 
                     duration: 0.8, 
                     ease: [0.76, 0, 0.24, 1] 

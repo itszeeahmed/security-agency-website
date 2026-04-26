@@ -1,77 +1,15 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useEffect, useRef, useState } from 'react'
-import Particles from 'react-tsparticles'
-import { loadFull } from 'tsparticles'
-import type { Container, Engine } from 'tsparticles-engine'
+import ImageCarousel from './ImageCarousel'
 
 export default function HeroSection() {
-  const [particlesReady, setParticlesReady] = useState(false)
-  const particlesInit = async (engine: Engine) => {
-    await loadFull(engine)
-    setParticlesReady(true)
-  }
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* tsParticles Background */}
-      <div className="particles-bg">
-        <Particles
-          id="tsparticles"
-          init={particlesInit}
-          options={{
-            background: {
-              color: {
-                value: "transparent",
-              },
-            },
-            fpsLimit: 120,
-            particles: {
-              color: {
-                value: "#c8973a",
-              },
-              links: {
-                color: {
-                  value: "#c8973a",
-                },
-                distance: 150,
-                enable: true,
-                opacity: 0.2,
-                width: 1,
-              },
-              move: {
-                direction: "none",
-                enable: true,
-                outModes: {
-                  default: "bounce",
-                },
-                random: false,
-                speed: 0.5,
-                straight: false,
-              },
-              number: {
-                density: {
-                  enable: true,
-                  area: 800,
-                },
-                value: 80,
-              },
-              opacity: {
-                value: 0.5,
-              },
-              shape: {
-                type: "circle",
-              },
-              size: {
-                value: { min: 1, max: 3 },
-              },
-            },
-            detectRetina: true,
-          }}
-        />
-      </div>
-
+    <section className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+      {/* Image Carousel Background */}
+      <ImageCarousel />
+      
       {/* CSS Grid Overlay */}
       <div className="absolute inset-0 grid-bg opacity-[0.03]" />
 

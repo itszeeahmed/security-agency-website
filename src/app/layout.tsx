@@ -2,12 +2,19 @@ import { Inter } from 'next/font/google'
 import '../styles/globals.css'
 import { ReactNode } from 'react'
 import LayoutWrapper from '@/components/LayoutWrapper'
+import RouteLoader from '@/components/RouteLoader'
+import WhatsAppChat from '@/components/WhatsAppChat'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   title: 'Vision Defence Security | Professional Security & Cleaning Services',
   description: 'Professional security and cleaning services across the UK. Trusted by leading companies for over 17 years.',
+  icons: {
+    icon: '/favicon.svg',
+    shortcut: '/favicon.svg',
+    apple: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({
@@ -23,9 +30,11 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700&family=Barlow+Condensed:wght@400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className={inter.className}>
+        <RouteLoader />
         <LayoutWrapper>
           {children}
         </LayoutWrapper>
+        <WhatsAppChat />
       </body>
     </html>
   )

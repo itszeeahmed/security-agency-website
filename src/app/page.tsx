@@ -7,19 +7,23 @@ import IndustriesSection from '@/components/IndustriesSection'
 import CtaBanner from '@/components/CtaBanner'
 import ContactSection from '@/components/ContactSection'
 import Footer from '@/components/Footer'
+import BackToTop from '@/components/BackToTop'
 
 export default function Home() {
   return (
-    <main className="relative">
+    <div className="relative">
       <Navigation />
-      <HeroSection />
-      <ServicesSection />
-      <WhyUsSection />
-      <StatsBar />
-      <IndustriesSection />
-      <CtaBanner />
-      <ContactSection />
+      <main>
+        <HeroSection />
+        <ServicesSection />
+        <WhyUsSection />
+        <StatsBar />
+        <IndustriesSection />
+        <CtaBanner />
+        <ContactSection />
+      </main>
       <Footer />
-    </main>
+      <BackToTop />
+    </div>
   )
 }
