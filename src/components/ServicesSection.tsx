@@ -1,9 +1,24 @@
 'use client'
 
+import { useState } from 'react'
 import ScrollReveal from './ScrollReveal'
-import { Shield, Sparkles, Users, Clock } from 'lucide-react'
+import ServiceDetailModal from './ServiceDetailModal'
+import { Shield, Sparkles, Users, Clock, Building, Wrench } from 'lucide-react'
 
 export default function ServicesSection() {
+  const [selectedService, setSelectedService] = useState<any>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleServiceClick = (service: any) => {
+    setSelectedService(service)
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setSelectedService(null)
+  }
+
   const services = [
     {
       number: '01',
@@ -18,6 +33,20 @@ export default function ServicesSection() {
       title: 'Cleaning Services',
       description: 'Professional cleaning and maintenance services for commercial and industrial properties.',
       features: ['Deep Cleaning', 'Scheduled Maintenance', 'Eco-Friendly Products']
+    },
+    {
+      number: '03',
+      icon: Building,
+      title: 'Facility Management',
+      description: 'Complete facility management solutions including maintenance, repairs, and operational support.',
+      features: ['Preventive Maintenance', 'Emergency Repairs', 'Vendor Management']
+    },
+    {
+      number: '04',
+      icon: Wrench,
+      title: 'Technical Support',
+      description: 'Expert technical support and IT services to keep your business operations running smoothly.',
+      features: ['IT Support', 'Network Security', 'System Maintenance']
     }
   ]
 
@@ -35,10 +64,13 @@ export default function ServicesSection() {
         </ScrollReveal>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-2 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {services.map((service, index) => (
             <ScrollReveal key={index} delay={index * 0.1}>
-              <div className="service-card bg-primary border border-border rounded-lg p-8 hover:shadow-lg hover:shadow-accent-gold/10 transition-all duration-300 group">
+              <div 
+                className="service-card bg-primary border border-border rounded-lg p-8 hover:shadow-lg hover:shadow-accent-gold/10 transition-all duration-300 group cursor-pointer"
+                onClick={() => handleServiceClick(service)}
+              >
                 {/* Ghost Number */}
                 <div className="text-8xl font-bebas text-accent-gold/10 mb-6 group-hover:text-accent-gold/20 transition-colors duration-300">
                   {service.number}
@@ -73,7 +105,7 @@ export default function ServicesSection() {
 
                   {/* CTA */}
                   <button className="mt-8 font-barlow-condensed text-sm tracking-widest text-accent-gold uppercase hover:text-accent-light transition-colors duration-300">
-                    Learn More →
+                    Click for Details →
                   </button>
                 </div>
               </div>
@@ -81,6 +113,15 @@ export default function ServicesSection() {
           ))}
         </div>
       </div>
+
+      {/* Service Detail Modal */}
+      {selectedService && (
+        <ServiceDetailModal
+          service={selectedService}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
+      )}
     </section>
   )
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { MessageCircle, X, Send } from 'lucide-react'
+import { MessageCircle, Send, X } from 'lucide-react'
 
 export default function WhatsAppChat() {
   const [isOpen, setIsOpen] = useState(false)
@@ -114,13 +114,21 @@ export default function WhatsAppChat() {
                     <p className="text-gray-400 text-xs">Typically replies instantly</p>
                   </div>
                 </div>
-                <button
+                <motion.button
                   onClick={handleClose}
                   className="text-gray-400 hover:text-white transition-colors p-1"
                   aria-label="Close chat"
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                  initial={{ rotate: 0 }}
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    duration: 0.3,
+                    rotate: { duration: 0.6, ease: "easeInOut" }
+                  }}
                 >
                   <X className="w-5 h-5" />
-                </button>
+                </motion.button>
               </div>
 
               {/* Modal Content */}

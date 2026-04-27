@@ -136,10 +136,10 @@ export default function ServicesPage() {
       {/* Services Grid */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             {services.map((service, index) => (
               <ScrollReveal key={index} delay={index * 0.1}>
-                <div className="service-card bg-surface border border-border rounded-lg p-6 hover:shadow-lg hover:shadow-accent-gold/10 transition-all duration-300 group">
+                <div className="service-card bg-surface border border-border rounded-lg p-6 hover:shadow-lg hover:shadow-accent-gold/10 transition-all duration-300 group h-full flex flex-col">
                   {/* Icon */}
                   <div className="w-12 h-12 bg-gradient-to-br from-accent-gold to-accent-light rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <service.icon className="w-6 h-6 text-primary" />
@@ -154,7 +154,7 @@ export default function ServicesPage() {
                   </p>
 
                   {/* Features */}
-                  <ul className="space-y-2 mb-4">
+                  <ul className="space-y-2 mb-4 flex-grow">
                     {service.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start space-x-2">
                         <CheckCircle className="w-4 h-4 text-accent-gold flex-shrink-0 mt-0.5" />

@@ -12,6 +12,29 @@ export default function Navigation() {
   const [mounted, setMounted] = useState(false)
   const pathname = usePathname()
 
+  const isActive = (href: string) => {
+    if (href === '/') {
+      return pathname === '/'
+    }
+    return pathname === href || pathname.startsWith(href + '/')
+  }
+
+  const getActiveClassName = (href: string) => {
+    const baseClasses = "nav-button px-4 py-2 font-barlow border rounded transition-all duration-300"
+    const activeClasses = "bg-accent-gold text-primary border-accent-gold"
+    const inactiveClasses = "text-text-primary hover:bg-accent-gold hover:text-primary border-transparent hover:border-accent-gold"
+    
+    return `${baseClasses} ${isActive(href) ? activeClasses : inactiveClasses}`
+  }
+
+  const getMobileActiveClassName = (href: string) => {
+    const baseClasses = "nav-button px-4 py-3 font-barlow rounded transition-all duration-300 text-center"
+    const activeClasses = "bg-accent-gold text-primary border-accent-gold"
+    const inactiveClasses = "text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold"
+    
+    return `${baseClasses} ${isActive(href) ? activeClasses : inactiveClasses}`
+  }
+
   useEffect(() => {
     setMounted(true)
     const handleScroll = () => {
@@ -41,41 +64,43 @@ export default function Navigation() {
           <div className="hidden md:flex items-center space-x-2">
             <Link 
               href="/" 
-              className={`nav-button px-4 py-2 font-barlow rounded transition-all duration-300 ${
-                pathname === '/' 
-                  ? 'bg-accent-gold text-primary border-accent-gold' 
-                  : 'text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold'
-              }`}
+              className={getActiveClassName('/')}
             >
               Home
             </Link>
             <Link 
               href="/services" 
-              className="nav-button px-4 py-2 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300"
+              className={getActiveClassName('/services')}
             >
               Services
             </Link>
             <Link 
               href="/about" 
-              className="nav-button px-4 py-2 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300"
+              className={getActiveClassName('/about')}
             >
               About Us
             </Link>
             <Link 
               href="/team" 
-              className="nav-button px-4 py-2 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300"
+              className={getActiveClassName('/team')}
             >
               Our Team
             </Link>
             <Link 
+              href="/accreditation" 
+              className={getActiveClassName('/accreditation')}
+            >
+              Accreditation
+            </Link>
+            <Link 
               href="/#industries" 
-              className="nav-button px-4 py-2 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300"
+              className={getActiveClassName('/#industries')}
             >
               Industries
             </Link>
             <Link 
               href="/contact" 
-              className="nav-button px-4 py-2 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300"
+              className={getActiveClassName('/contact')}
             >
               Contact
             </Link>
@@ -102,46 +127,49 @@ export default function Navigation() {
             <div className="flex flex-col space-y-3">
               <Link 
                 href="/" 
-                className={`nav-button px-4 py-3 font-barlow rounded transition-all duration-300 text-center ${
-                  pathname === '/' 
-                    ? 'bg-accent-gold text-primary border-accent-gold' 
-                    : 'text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold'
-                }`}
+                className={getMobileActiveClassName('/')}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Home
               </Link>
               <Link 
                 href="/services" 
-                className="nav-button px-4 py-3 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300 text-center"
+                className={getMobileActiveClassName('/services')}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Services
               </Link>
               <Link 
                 href="/about" 
-                className="nav-button px-4 py-3 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300 text-center"
+                className={getMobileActiveClassName('/about')}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 About Us
               </Link>
               <Link 
                 href="/team" 
-                className="nav-button px-4 py-3 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300 text-center"
+                className={getMobileActiveClassName('/team')}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Our Team
               </Link>
               <Link 
+                href="/accreditation" 
+                className={getMobileActiveClassName('/accreditation')}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Accreditation
+              </Link>
+              <Link 
                 href="/#industries" 
-                className="nav-button px-4 py-3 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300 text-center"
+                className={getMobileActiveClassName('/#industries')}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Industries
               </Link>
               <Link 
                 href="/contact" 
-                className="nav-button px-4 py-3 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300 text-center"
+                className={getMobileActiveClassName('/contact')}
                 onClick={() => setMobileMenuOpen(false)}
               >
                 Contact
