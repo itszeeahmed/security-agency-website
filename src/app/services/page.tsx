@@ -3,7 +3,7 @@ import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import ScrollReveal from '@/components/ScrollReveal'
 import BackToTop from '@/components/BackToTop'
-import { Shield, Users, Camera, Clock, MapPin, Award, CheckCircle, Star } from 'lucide-react'
+import { Shield, Users, Camera, Clock, MapPin, Award, CheckCircle, Star, Target, Eye } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: 'Services | Vision Defence Security',
@@ -20,8 +20,7 @@ const services = [
       '24/7 monitoring and surveillance',
       'Access control management',
       'Emergency response protocols'
-    ],
-    price: 'From £25/hour'
+    ]
   },
   {
     icon: Camera,
@@ -32,8 +31,7 @@ const services = [
       '24/7 remote monitoring',
       'Motion detection alerts',
       'Video recording and storage'
-    ],
-    price: 'From £200/month'
+    ]
   },
   {
     icon: Users,
@@ -44,8 +42,7 @@ const services = [
       'GPS tracked patrol vehicles',
       'Incident reporting system',
       'Rapid response deployment'
-    ],
-    price: 'From £35/hour'
+    ]
   },
   {
     icon: Clock,
@@ -56,8 +53,7 @@ const services = [
       '24/7 alarm response',
       'Emergency building access',
       'Incident management'
-    ],
-    price: 'From £150/month'
+    ]
   },
   {
     icon: MapPin,
@@ -68,8 +64,7 @@ const services = [
       'VIP protection',
       'Access control points',
       'Emergency evacuation support'
-    ],
-    price: 'Custom quote'
+    ]
   },
   {
     icon: Award,
@@ -80,8 +75,40 @@ const services = [
       'Deep cleaning services',
       'Waste management',
       'Specialized equipment'
-    ],
-    price: 'From £15/hour'
+    ]
+  },
+  {
+    icon: Target,
+    title: 'Risk Assessment',
+    description: 'Comprehensive security risk assessments and vulnerability analysis.',
+    features: [
+      'Site security evaluation',
+      'Threat identification',
+      'Risk mitigation strategies',
+      'Security audit reports'
+    ]
+  },
+  {
+    icon: Eye,
+    title: 'Surveillance Systems',
+    description: 'Advanced surveillance systems with AI-powered monitoring and analytics.',
+    features: [
+      'AI-powered video analytics',
+      'Facial recognition systems',
+      'License plate recognition',
+      'Real-time monitoring dashboard'
+    ]
+  },
+  {
+    icon: Star,
+    title: 'Executive Protection',
+    description: 'Professional executive protection and close protection services.',
+    features: [
+      'Personal security details',
+      'Secure transportation',
+      'Threat assessment teams',
+      'Discreet protection services'
+    ]
   }
 ]
 
@@ -109,47 +136,36 @@ export default function ServicesPage() {
       {/* Services Grid */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {services.map((service, index) => (
               <ScrollReveal key={index} delay={index * 0.1}>
-                <div className="service-card bg-surface border border-border rounded-lg p-8 hover:shadow-lg hover:shadow-accent-gold/10 transition-all duration-300 group">
+                <div className="service-card bg-surface border border-border rounded-lg p-6 hover:shadow-lg hover:shadow-accent-gold/10 transition-all duration-300 group">
                   {/* Icon */}
-                  <div className="w-16 h-16 bg-gradient-to-br from-accent-gold to-accent-light rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                    <service.icon className="w-8 h-8 text-primary" />
+                  <div className="w-12 h-12 bg-gradient-to-br from-accent-gold to-accent-light rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <service.icon className="w-6 h-6 text-primary" />
                   </div>
 
                   {/* Content */}
-                  <h3 className="font-bebas text-2xl text-text-primary mb-4">
+                  <h3 className="font-bebas text-xl text-text-primary mb-3">
                     {service.title}
                   </h3>
-                  <p className="font-barlow text-text-muted mb-6">
+                  <p className="font-barlow text-text-muted text-sm mb-4">
                     {service.description}
                   </p>
 
                   {/* Features */}
-                  <ul className="space-y-3 mb-6">
+                  <ul className="space-y-2 mb-4">
                     {service.features.map((feature, featureIndex) => (
-                      <li key={featureIndex} className="flex items-start space-x-3">
-                        <CheckCircle className="w-5 h-5 text-accent-gold flex-shrink-0 mt-0.5" />
-                        <span className="font-barlow text-text-muted text-sm">
+                      <li key={featureIndex} className="flex items-start space-x-2">
+                        <CheckCircle className="w-4 h-4 text-accent-gold flex-shrink-0 mt-0.5" />
+                        <span className="font-barlow text-text-muted text-xs">
                           {feature}
                         </span>
                       </li>
                     ))}
                   </ul>
 
-                  {/* Price */}
-                  <div className="border-t border-border pt-6">
-                    <div className="flex items-center justify-between">
-                      <span className="font-barlow-condensed text-accent-gold font-semibold">
-                        {service.price}
-                      </span>
-                      <button className="px-4 py-2 bg-accent-gold text-primary font-barlow-condensed font-semibold text-sm rounded hover:bg-accent-light transition-colors duration-300">
-                        Get Quote
-                      </button>
-                    </div>
-                  </div>
-                </div>
+                                  </div>
               </ScrollReveal>
             ))}
           </div>

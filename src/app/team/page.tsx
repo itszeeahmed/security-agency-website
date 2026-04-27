@@ -1,12 +1,24 @@
 'use client'
-import { Metadata } from 'next'
+
+import { useState } from 'react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import ScrollReveal from '@/components/ScrollReveal'
 import BackToTop from '@/components/BackToTop'
-import { Shield, Users, Award, MapPin, Phone, Mail, Star, CheckCircle } from 'lucide-react'
+import TeamMemberModal from '@/components/TeamMemberModal'
+import { Users, Award, MapPin, Phone, Mail, Star, CheckCircle, Shield } from 'lucide-react'
 
 const teamMembers = [
+  {
+    name: "Zeeshan Ahmed",
+    position: "Technical Lead (IT & Development)",
+    image: "/images/zeeshan-ahmed.jpg",
+    bio: "Zeeshan leads our technical infrastructure and development initiatives, ensuring cutting-edge security technology solutions and digital transformation.",
+    experience: "3+ Years",
+    specialties: ["Full-Stack Development", "Security Systems Integration", "Cloud Architecture", "DevOps"],
+    contact: "zeeshanahmed@visiondefencesecurity.co.uk",
+    linkedin: "https://www.linkedin.com/in/zeeshan-ahmed-61a0b929b/"
+  },
   {
     name: "James Mitchell",
     position: "Chief Executive Officer",
@@ -63,57 +75,27 @@ const teamMembers = [
   }
 ]
 
-const teamStats = [
-  { number: "500+", label: "Security Professionals" },
-  { number: "50+", label: "Management Team" },
-  { number: "98%", label: "Client Satisfaction" },
-  { number: "24/7", label: "Support Available" }
-]
 
 export default function TeamPage() {
+  const [selectedMember, setSelectedMember] = useState<typeof teamMembers[0] | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleMemberClick = (member: typeof teamMembers[0]) => {
+    setSelectedMember(member)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setSelectedMember(null)
+  }
+
   return (
     <div className="min-h-screen">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 grid-bg opacity-[0.03]" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 text-center">
-          <ScrollReveal>
-            <div className="flex items-center justify-center mb-6">
-              <Users className="w-12 h-12 text-accent-gold mr-4" />
-              <h1 className="font-bebas text-5xl md:text-7xl text-gradient">
-                Our Team
-              </h1>
-            </div>
-            <p className="font-barlow text-xl text-text-muted max-w-3xl mx-auto">
-              Meet the dedicated professionals who make Vision Defence Security the trusted name 
-              in protection services across the UK.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* Team Stats */}
-      <section className="py-16 bg-gradient-to-r from-accent-gold/10 to-accent-light/10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            {teamStats.map((stat, index) => (
-              <ScrollReveal key={index} delay={index * 0.1}>
-                <div className="text-center">
-                  <div className="font-bebas text-4xl md:text-5xl text-accent-gold mb-2">
-                    {stat.number}
-                  </div>
-                  <div className="font-barlow text-text-muted">
-                    {stat.label}
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      
+      
       {/* Team Members Grid */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8">
@@ -130,11 +112,26 @@ export default function TeamPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {teamMembers.map((member, index) => (
               <ScrollReveal key={index} delay={index * 0.1}>
-                <div className="bg-surface border border-border rounded-lg overflow-hidden hover:border-accent-gold/50 transition-all duration-300 group">
+                <div 
+                  className="bg-surface border border-border rounded-lg overflow-hidden hover:border-accent-gold/50 transition-all duration-300 group cursor-pointer"
+                  onClick={() => handleMemberClick(member)}
+                >
                   {/* Team Member Image */}
                   <div className="relative h-64 bg-gradient-to-br from-accent-gold/20 to-accent-light/20 overflow-hidden">
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-24 h-24 bg-accent-gold rounded-full flex items-center justify-center">
+                      {member.image === '/images/zeeshan-ahmed.jpg' ? (
+                        <img 
+                          src={member.image} 
+                          alt={member.name}
+                          className="w-24 h-24 rounded-full object-cover border-4 border-accent-gold"
+                          onError={(e) => {
+                            const target = e.target as HTMLImageElement
+                            target.style.display = 'none'
+                            target.nextElementSibling?.classList.remove('hidden')
+                          }}
+                        />
+                      ) : null}
+                      <div className={`w-24 h-24 bg-accent-gold rounded-full flex items-center justify-center ${member.image === '/images/zeeshan-ahmed.jpg' ? 'hidden' : ''}`}>
                         <Users className="w-12 h-12 text-primary" />
                       </div>
                     </div>
@@ -181,9 +178,14 @@ export default function TeamPage() {
                     </div>
 
                     <div className="pt-4 border-t border-border">
-                      <div className="flex items-center text-sm text-text-muted">
-                        <Mail className="w-4 h-4 mr-2 text-accent-gold" />
-                        <span className="truncate">{member.contact}</span>
+                      <div className="flex flex-col gap-2">
+                        <div className="flex items-center text-sm text-text-muted">
+                          <Mail className="w-4 h-4 mr-2 text-accent-gold" />
+                          <span className="truncate">{member.contact}</span>
+                        </div>
+                        <div className="text-xs text-accent-gold font-barlow text-right">
+                          Click for details →
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -223,6 +225,13 @@ export default function TeamPage() {
 
       <Footer />
       <BackToTop />
+      
+      {/* Team Member Modal */}
+      <TeamMemberModal 
+        member={selectedMember}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+      />
     </div>
   )
 }

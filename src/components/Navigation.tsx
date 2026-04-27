@@ -4,11 +4,13 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Shield, Phone, Menu, X } from 'lucide-react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const pathname = usePathname()
 
   useEffect(() => {
     setMounted(true)
@@ -37,6 +39,16 @@ export default function Navigation() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-2">
+            <Link 
+              href="/" 
+              className={`nav-button px-4 py-2 font-barlow rounded transition-all duration-300 ${
+                pathname === '/' 
+                  ? 'bg-accent-gold text-primary border-accent-gold' 
+                  : 'text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold'
+              }`}
+            >
+              Home
+            </Link>
             <Link 
               href="/services" 
               className="nav-button px-4 py-2 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300"
@@ -88,6 +100,17 @@ export default function Navigation() {
             className="md:hidden bg-primary border-t border-border py-6"
           >
             <div className="flex flex-col space-y-3">
+              <Link 
+                href="/" 
+                className={`nav-button px-4 py-3 font-barlow rounded transition-all duration-300 text-center ${
+                  pathname === '/' 
+                    ? 'bg-accent-gold text-primary border-accent-gold' 
+                    : 'text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold'
+                }`}
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
               <Link 
                 href="/services" 
                 className="nav-button px-4 py-3 font-barlow text-text-primary hover:bg-accent-gold hover:text-primary border border-transparent hover:border-accent-gold rounded transition-all duration-300 text-center"
