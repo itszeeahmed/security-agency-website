@@ -97,8 +97,8 @@ export default function TeamPage() {
       
       
       {/* Team Members Grid */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8">
+      <section className="py-16 sm:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
           <ScrollReveal className="text-center mb-16">
             <h2 className="font-bebas text-4xl md:text-5xl text-gradient mb-6">
               Leadership Team
@@ -109,7 +109,7 @@ export default function TeamPage() {
             </p>
           </ScrollReveal>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
             {teamMembers.map((member, index) => (
               <ScrollReveal key={index} delay={index * 0.1}>
                 <div 

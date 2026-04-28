@@ -8,19 +8,8 @@ export interface LocationInfo {
   ip: string
 }
 
-// Free IP geolocation services
+// Free IP geolocation services - ordered by reliability
 const GEOLOCATION_APIS = [
-  {
-    name: 'ipapi.co',
-    url: 'https://ipapi.co/json/',
-    parser: (data: any) => ({
-      country: data.country_name,
-      countryCode: data.country_code,
-      city: data.city,
-      region: data.region,
-      ip: data.ip
-    })
-  },
   {
     name: 'ip-api.com',
     url: 'http://ip-api.com/json/',
@@ -42,6 +31,17 @@ const GEOLOCATION_APIS = [
       region: data.region,
       ip: data.ip
     })
+  },
+  {
+    name: 'ipapi.co',
+    url: 'https://ipapi.co/json/',
+    parser: (data: any) => ({
+      country: data.country_name,
+      countryCode: data.country_code,
+      city: data.city,
+      region: data.region,
+      ip: data.ip
+    })
   }
 ]
 
@@ -53,8 +53,10 @@ export async function getUserLocation(): Promise<LocationInfo | null> {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
+          'Content-Type': 'application/json',
         },
-        signal: AbortSignal.timeout(5000) // 5 second timeout
+        mode: 'cors',
+        signal: AbortSignal.timeout(3000) // 3 second timeout
       })
 
       if (!response.ok) {
@@ -69,7 +71,11 @@ export async function getUserLocation(): Promise<LocationInfo | null> {
         return location
       }
     } catch (error) {
-      console.warn(`Geolocation API ${api.name} failed:`, error)
+      // Silently continue to next API without spamming console
+      if (error instanceof TypeError && error.message.includes('Failed to fetch')) {
+        // CORS or network error - try next API silently
+        continue
+      }
       continue // Try next API
     }
   }

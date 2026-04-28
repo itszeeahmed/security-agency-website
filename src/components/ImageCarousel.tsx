@@ -43,14 +43,14 @@ export default function ImageCarousel() {
       </AnimatePresence>
       
       {/* Carousel indicators */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-10">
+      <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-1.5 sm:space-x-2 z-10 px-4">
         {images.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={`w-2 h-2 rounded-full transition-all duration-300 ${
+            className={`w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full transition-all duration-300 ${
               index === currentIndex 
-                ? 'bg-accent-gold w-8' 
+                ? 'bg-accent-gold w-6 sm:w-8' 
                 : 'bg-white/50 hover:bg-white/75'
             }`}
             aria-label={`Go to slide ${index + 1}`}

@@ -51,11 +51,11 @@ export default function ServicesSection() {
   ]
 
   return (
-    <section id="services" className="py-24 bg-surface">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+    <section id="services" className="py-16 sm:py-20 md:py-24 bg-surface">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Section Header */}
-        <ScrollReveal className="text-center mb-20">
-          <h2 className="font-bebas text-4xl md:text-5xl text-gradient mb-6">
+        <ScrollReveal className="text-center mb-12 sm:mb-16 md:mb-20">
+          <h2 className="font-bebas text-3xl sm:text-4xl md:text-5xl text-gradient mb-6">
             Our Services
           </h2>
           <p className="font-barlow text-text-muted max-w-2xl mx-auto">
@@ -64,11 +64,11 @@ export default function ServicesSection() {
         </ScrollReveal>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
           {services.map((service, index) => (
             <ScrollReveal key={index} delay={index * 0.1}>
               <div 
-                className="service-card bg-primary border border-border rounded-lg p-8 hover:shadow-lg hover:shadow-accent-gold/10 transition-all duration-300 group cursor-pointer"
+                className="service-card bg-primary border border-border rounded-lg p-6 sm:p-8 hover:shadow-lg hover:shadow-accent-gold/10 transition-all duration-300 group cursor-pointer"
                 onClick={() => handleServiceClick(service)}
               >
                 {/* Ghost Number */}

@@ -155,11 +155,11 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-24 bg-surface">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+    <section id="contact" className="py-16 sm:py-20 md:py-24 bg-surface">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Section Header */}
-        <ScrollReveal className="text-center mb-20">
-          <h2 className="font-bebas text-4xl md:text-5xl text-gradient mb-6">
+        <ScrollReveal className="text-center mb-12 sm:mb-16 md:mb-20">
+          <h2 className="font-bebas text-3xl sm:text-4xl md:text-5xl text-gradient mb-6">
             Get In Touch
           </h2>
           <p className="font-barlow text-text-muted max-w-2xl mx-auto">
@@ -167,16 +167,16 @@ export default function ContactSection() {
           </p>
         </ScrollReveal>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16">
           {/* Contact Form */}
           <ScrollReveal delay={0.2}>
-            <div className="bg-primary border border-border rounded-lg p-8">
+            <div className="bg-primary border border-border rounded-lg p-6 sm:p-8">
               <h3 className="font-barlow-condensed text-2xl font-semibold text-accent-gold uppercase tracking-wider mb-8">
                 Send Us a Message
               </h3>
               
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid md:grid-cols-2 gap-6">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+                <div className="grid md:grid-cols-2 gap-4 sm:gap-6">
                   <div>
                     <label htmlFor="name" className="block font-barlow text-sm text-text-muted mb-2">
                       Full Name *

@@ -14,7 +14,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 grid-bg opacity-[0.03]" />
 
       {/* Hero Content */}
-      <div className="relative z-10 text-center px-6 max-w-6xl mx-auto">
+      <div className="relative z-20 text-center px-4 sm:px-6 max-w-6xl mx-auto">
         {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -32,7 +32,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.6 }}
-          className="font-bebas text-5xl md:text-7xl lg:text-8xl text-gradient leading-tight mb-8"
+          className="font-bebas text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl text-gradient leading-tight mb-6 sm:mb-8"
         >
           Professional SECURITY &<br />
           Cleaning Services<br />
@@ -44,7 +44,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="font-barlow text-xl text-text-muted max-w-3xl mx-auto mb-12"
+          className="font-barlow text-lg sm:text-xl text-text-muted max-w-2xl sm:max-w-3xl mx-auto mb-8 sm:mb-12"
         >
           Protecting your business with elite security solutions and professional 
           cleaning services. Trusted by leading companies nationwide.
@@ -55,12 +55,12 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.8, duration: 0.6 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4"
         >
-          <button className="px-8 py-4 bg-gradient-to-r from-accent-gold to-accent-light text-primary font-barlow-condensed font-semibold text-sm tracking-widest uppercase rounded-sm hover:shadow-lg hover:shadow-accent-gold/25 transition-all duration-300">
+          <button className="px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-accent-gold to-accent-light text-primary font-barlow-condensed font-semibold text-sm tracking-widest uppercase rounded-sm hover:shadow-lg hover:shadow-accent-gold/25 transition-all duration-300 w-full sm:w-auto">
             Get a Free Quote
           </button>
-          <button className="px-8 py-4 border-2 border-accent-gold text-accent-gold font-barlow-condensed font-semibold text-sm tracking-widest uppercase rounded-sm hover:bg-accent-gold hover:text-primary transition-all duration-300">
+          <button className="px-6 sm:px-8 py-3 sm:py-4 border-2 border-accent-gold text-accent-gold font-barlow-condensed font-semibold text-sm tracking-widest uppercase rounded-sm hover:bg-accent-gold hover:text-primary transition-all duration-300 w-full sm:w-auto">
             Call Now
           </button>
         </motion.div>
@@ -70,7 +70,7 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.0, duration: 0.6 }}
-          className="flex flex-wrap justify-center gap-8 mt-16"
+          className="flex flex-wrap justify-center gap-4 sm:gap-6 lg:gap-8 mt-12 sm:mt-16"
         >
           <div className="flex items-center gap-2">
             <div className="w-2 h-2 bg-accent-gold rounded-full" />
@@ -87,6 +87,6 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-          </section>
+    </section>
   )
 }

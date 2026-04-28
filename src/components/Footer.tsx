@@ -5,10 +5,10 @@ import { Shield, Phone, Mail, MapPin, Facebook, Twitter, Linkedin, Instagram } f
 
 export default function Footer() {
   return (
-    <footer className="bg-primary border-t border-border py-16">
-      <div className="max-w-7xl mx-auto px-6 sm:px-8">
+    <footer className="bg-primary border-t border-border py-12 sm:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-8 md:mb-12">
           {/* Brand Column */}
           <ScrollReveal>
             <div className="space-y-4">

@@ -221,19 +221,19 @@ export default function ServiceDetailModal({ service, isOpen, onClose }: Service
           )}
 
           {/* CTA */}
-          <div className="bg-gradient-to-r from-accent-gold/10 to-accent-light/10 border border-accent-gold/20 rounded-lg p-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h4 className="font-bebas text-xl text-text-primary mb-2">
+          <div className="bg-gradient-to-r from-accent-gold/10 to-accent-light/10 border border-accent-gold/20 rounded-lg p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="text-center sm:text-left">
+                <h4 className="font-bebas text-lg sm:text-xl text-text-primary mb-2">
                   Ready to Get Started?
                 </h4>
-                <p className="font-barlow text-text-muted">
+                <p className="font-barlow text-text-muted text-sm sm:text-base">
                   Contact us today for a free consultation and customized quote.
                 </p>
               </div>
               <Link
                 href="/contact"
-                className="px-6 py-3 bg-accent-gold text-primary font-barlow-condensed font-semibold text-sm tracking-widest uppercase rounded-sm hover:shadow-lg hover:shadow-accent-gold/25 transition-all duration-300 flex items-center space-x-2"
+                className="px-4 sm:px-6 py-3 bg-accent-gold text-primary font-barlow-condensed font-semibold text-sm tracking-widest uppercase rounded-sm hover:shadow-lg hover:shadow-accent-gold/25 transition-all duration-300 flex items-center justify-center space-x-2 w-full sm:w-auto"
                 onClick={onClose}
               >
                 <span>Contact Us</span>
