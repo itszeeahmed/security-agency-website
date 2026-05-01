@@ -1,14 +1,12 @@
-import { Metadata } from 'next'
+'use client'
+
+import { useState } from 'react'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
 import ScrollReveal from '@/components/ScrollReveal'
 import BackToTop from '@/components/BackToTop'
+import ServiceDetailModal from '@/components/ServiceDetailModal'
 import { Shield, Users, Camera, Clock, MapPin, Award, CheckCircle, Star, Target, Eye } from 'lucide-react'
-
-export const metadata: Metadata = {
-  title: 'Services | Vision Defence Security',
-  description: 'Professional security and cleaning services across the UK. Expert security guards, CCTV monitoring, mobile patrols, and commercial cleaning solutions.',
-}
 
 const services = [
   {
@@ -113,6 +111,19 @@ const services = [
 ]
 
 export default function ServicesPage() {
+  const [selectedService, setSelectedService] = useState<any>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleServiceClick = (service: any) => {
+    setSelectedService(service)
+    setIsModalOpen(true)
+  }
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
+    setSelectedService(null)
+  }
+
   return (
     <div className="min-h-screen">
       <Navigation />
@@ -139,7 +150,10 @@ export default function ServicesPage() {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             {services.map((service, index) => (
               <ScrollReveal key={index} delay={index * 0.1}>
-                <div className="service-card bg-surface border border-border rounded-lg p-6 hover:shadow-lg hover:shadow-accent-gold/10 transition-all duration-300 group h-full flex flex-col">
+                <div 
+                  className="service-card bg-surface border border-border rounded-lg p-6 hover:shadow-lg hover:shadow-accent-gold/10 transition-all duration-300 group h-full flex flex-col cursor-pointer"
+                  onClick={() => handleServiceClick(service)}
+                >
                   {/* Icon */}
                   <div className="w-12 h-12 bg-gradient-to-br from-accent-gold to-accent-light rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                     <service.icon className="w-6 h-6 text-primary" />
@@ -165,7 +179,11 @@ export default function ServicesPage() {
                     ))}
                   </ul>
 
-                                  </div>
+                  {/* CTA */}
+                  <button className="mt-4 font-barlow-condensed text-sm tracking-widest text-accent-gold uppercase hover:text-accent-light transition-colors duration-300">
+                    Click for Details →
+                  </button>
+                </div>
               </ScrollReveal>
             ))}
           </div>
@@ -196,6 +214,15 @@ export default function ServicesPage() {
 
       <Footer />
       <BackToTop />
+
+      {/* Service Detail Modal */}
+      {selectedService && (
+        <ServiceDetailModal
+          service={selectedService}
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+        />
+      )}
     </div>
   )
 }

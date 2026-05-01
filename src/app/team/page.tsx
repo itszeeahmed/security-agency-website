@@ -10,6 +10,15 @@ import { Users, Award, MapPin, Phone, Mail, Star, CheckCircle, Shield } from 'lu
 
 const teamMembers = [
   {
+    name: "Muhammad Junaid",
+    position: "Operation Manager",
+    image: "/images/muhammad-junaid.jpg",
+    bio: "Muhammad leads our operational excellence and service delivery, ensuring seamless coordination of security operations and maintaining highest standards of client satisfaction.",
+    experience: "5+ Years",
+    specialties: ["Operations Management", "Security Operations", "Team Leadership", "Quality Control"],
+    contact: "muhammadjunaid@visiondefencesecurity.co.uk"
+  },
+  {
     name: "Zeeshan Ahmed",
     position: "Technical Lead (IT & Development)",
     image: "/images/zeeshan-ahmed.jpg",
@@ -119,7 +128,7 @@ export default function TeamPage() {
                   {/* Team Member Image */}
                   <div className="relative h-64 bg-gradient-to-br from-accent-gold/20 to-accent-light/20 overflow-hidden">
                     <div className="absolute inset-0 flex items-center justify-center">
-                      {member.image === '/images/zeeshan-ahmed.jpg' ? (
+                      {(member.image === '/images/zeeshan-ahmed.jpg' || member.image === '/images/muhammad-junaid.jpg') ? (
                         <img 
                           src={member.image} 
                           alt={member.name}
@@ -131,7 +140,7 @@ export default function TeamPage() {
                           }}
                         />
                       ) : null}
-                      <div className={`w-24 h-24 bg-accent-gold rounded-full flex items-center justify-center ${member.image === '/images/zeeshan-ahmed.jpg' ? 'hidden' : ''}`}>
+                      <div className={`w-24 h-24 bg-accent-gold rounded-full flex items-center justify-center ${(member.image === '/images/zeeshan-ahmed.jpg' || member.image === '/images/muhammad-junaid.jpg') ? 'hidden' : ''}`}>
                         <Users className="w-12 h-12 text-primary" />
                       </div>
                     </div>
